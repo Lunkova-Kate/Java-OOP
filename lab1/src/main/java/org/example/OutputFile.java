@@ -1,10 +1,13 @@
 package org.example;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 public class OutputFile {
     private String outputFile;
@@ -14,15 +17,17 @@ public class OutputFile {
     }
 
     public void writeReport(List<WordStat> stats) {
-        long totalWords = stats.stream().mapToLong(WordStat::getFrequency).sum();
-        String header = "Слово;Частота;Частота (%)\n";
+        File file = new File(outputFile);
+        try (Writer writer = new FileWriter(file)) {
+            writer.write("Слово;Частота;Частота (%)\n");
+            // Вычисляем общее количество слов
+            long totalWords = stats.stream().mapToLong(WordStat::getFrequency).sum();
 
-        try (Writer writer = new FileWriter(outputFile)) {
-            writer.write(header); // Записываем заголовки столбцов
+            // Устанавливаем локаль US, чтобы десятичный разделитель был точкой :(
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+            DecimalFormat df = new DecimalFormat("#.0", symbols); // Форматируем проценты до одного знака после запятой
 
-            DecimalFormat df = new DecimalFormat("#.###"); // Форматируем проценты до двух знаков после запятой
-
-            // проходим по каждому слову и записываем его вместе с частотой и процентом
+            // Проходим по каждому слову и записываем его вместе с частотой и процентом
             for (WordStat stat : stats) {
                 double percentage = (double) stat.getFrequency() / totalWords * 100;
                 String row = stat.getWord() + ";" +
@@ -32,6 +37,9 @@ public class OutputFile {
             }
         } catch (IOException e) {
             System.err.println("Ошибка записи в файл: " + outputFile);
+            if (file.exists()) {
+                file.delete();
+            }
         }
     }
 }

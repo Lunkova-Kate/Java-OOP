@@ -14,7 +14,6 @@ class ControllerTest {
 
     @Test
     void testGenerateReport_Success(@TempDir Path tempDir) throws IOException {
-        // Создаем временный входной файл
         File inputFile = tempDir.resolve("input.txt").toFile();
         try (FileWriter writer = new FileWriter(inputFile)) {
             writer.write("test data");

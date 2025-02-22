@@ -20,7 +20,7 @@ public class ReportGenerator {
                 letters.append((char) symbol);
             } else if (letters.length() > 0) {
                 processWord(letters.toString());
-                letters.setLength(0); // чистим StringBuilder для следующего слова
+                letters.setLength(0); // чистим для следующего слова
             }
         }
 

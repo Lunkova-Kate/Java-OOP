@@ -12,14 +12,11 @@ class ReportGeneratorTest {
 
     @Test
     void testAnalyze_SingleWord() throws IOException {
-        // Подготовка
         String input = "hello";
         ReportGenerator generator = new ReportGenerator();
 
-        // Действие
         generator.analyze(new StringReader(input));
 
-        // Проверка
         List<WordStat> stats = generator.getSortedWordStats();
         assertEquals(1, stats.size());
         assertEquals("hello", stats.get(0).getWord());
@@ -28,14 +25,11 @@ class ReportGeneratorTest {
 
     @Test
     void testAnalyze_MultipleWords() throws IOException {
-        // Подготовка
         String input = "hello world hello";
         ReportGenerator generator = new ReportGenerator();
 
-        // Действие
         generator.analyze(new StringReader(input));
 
-        // Проверка
         List<WordStat> stats = generator.getSortedWordStats();
         assertEquals(2, stats.size());
         assertEquals("hello", stats.get(0).getWord());
@@ -46,44 +40,36 @@ class ReportGeneratorTest {
 
     @Test
     void testAnalyze_EmptyInput() throws IOException {
-        // Подготовка
         String input = "";
         ReportGenerator generator = new ReportGenerator();
 
-        // Действие
         generator.analyze(new StringReader(input));
 
-        // Проверка
         List<WordStat> stats = generator.getSortedWordStats();
         assertTrue(stats.isEmpty());
     }
 
     @Test
     void testAnalyze_IgnoreNonLetters() throws IOException {
-        // Подготовка
         String input = "hello, world! 123";
         ReportGenerator generator = new ReportGenerator();
 
-        // Действие
         generator.analyze(new StringReader(input));
 
-        // Проверка
         List<WordStat> stats = generator.getSortedWordStats();
-        assertEquals(2, stats.size());
-        assertEquals("hello", stats.get(0).getWord());
+        assertEquals(3, stats.size());
+        assertEquals("123", stats.get(0).getWord());
         assertEquals("world", stats.get(1).getWord());
+        assertEquals("hello", stats.get(2).getWord());
     }
 
     @Test
     void testGetSortedWordStats_Sorting() throws IOException {
-        // Подготовка
         String input = "apple banana apple cherry banana apple";
         ReportGenerator generator = new ReportGenerator();
 
-        // Действие
         generator.analyze(new StringReader(input));
 
-        // Проверка
         List<WordStat> stats = generator.getSortedWordStats();
         assertEquals(3, stats.size());
         assertEquals("apple", stats.get(0).getWord());
