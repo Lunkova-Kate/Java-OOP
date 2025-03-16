@@ -37,12 +37,10 @@ public class Main {
                     if (line.equalsIgnoreCase("EXIT")) {
                         break;
                     }
-
                     try {
-                        // Выполняем команду сразу
-
                         calculator.executeCommands(List.of(line));
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e) {
                         System.err.println("Error: " + e.getMessage());
                     }
                 }
