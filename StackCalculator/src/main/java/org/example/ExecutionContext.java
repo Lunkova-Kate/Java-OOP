@@ -17,4 +17,10 @@ public class ExecutionContext {
     public void printStack() {
         System.out.println("Stack: " + stack);
     }
+//    public double popStackWithCheck() throws CalculatorException {
+//        if (stack.isEmpty()) {
+//            throw new CalculatorException("Not enough elements in stack");
+//        }
+//        return stack.pop();
+//    }
 }

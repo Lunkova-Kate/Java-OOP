@@ -5,11 +5,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) {
-        List<String> commands = new ArrayList<>();
+    public static void main(String[] args) throws CalculatorException {
+       List<String> commands = new ArrayList<>();
 
         // Режим файла
         if (args.length > 0) {
@@ -24,6 +26,7 @@ public class Main {
                 return;
             }
         }
+
         // Интерактивный режим
         else {
             System.out.println("Entering interactive mode. Type 'EXIT' to quit.");
@@ -46,14 +49,29 @@ public class Main {
                 }
             } catch (IOException e) {
                 System.err.println("Error reading input: " + e.getMessage());
-                return;
+                throw new RuntimeException(e);
+
             }
         }
 
         // Запуск калькулятора (для режима файла)
         if (!commands.isEmpty()) {
             Calculator calculator = new Calculator();
-            calculator.executeCommands(commands);
+            try {
+                calculator.executeCommands(commands);
+            } catch (CalculatorException e) {
+                System.err.println("Error executing commands: " + e.getMessage());
+                throw new RuntimeException(e); // Оборачиваем в RuntimeException
+            }
         }
+//        Map<String, Command> commands = new HashMap<>();
+//        CommandFactory factory = new CommandFactory();
+//        List<String> commands = List.of(
+//                "PUSH 10",
+//                "ADD" // Недостаточно элементов в стеке
+//        );
+//        Calculator cals = new Calculator();
+//        cals.executeCommands(commands);
+
     }
 }

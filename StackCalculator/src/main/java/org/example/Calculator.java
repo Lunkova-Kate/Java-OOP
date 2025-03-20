@@ -6,20 +6,22 @@ public class Calculator {
     private ExecutionContext context = new ExecutionContext();
     private CommandFactory commandFactory = new CommandFactory();
 
-    public void executeCommands(List<String> commands) {
+    public ExecutionContext getContext() {
+        return context;
+    }
+    public void executeCommands(List<String> commands) throws CalculatorException {
         for (String commandLine : commands) {
-            String[] parts = commandLine.split(" "); // Делим по пробелам
+            String[] parts = commandLine.split(" ");
             String commandName = parts[0];
-            String[] args = new String[parts.length - 1]; // Остались только аргументы
-            System.arraycopy(parts, 1, args, 0, args.length); // Копируем в args
-
+            String[] args = new String[parts.length - 1];
+            System.arraycopy(parts, 1, args, 0, args.length);
             try {
                 Command command = commandFactory.getCommand(commandName);
                 command.execute(context, args);
-                context.printStack(); // Отладочный вывод
             } catch (CalculatorException e) {
                 System.err.println("Error executing command: " + commandLine);
                 System.err.println("Reason: " + e.getMessage());
+                throw e; // Пробрасываем исключение дальше
             }
         }
     }

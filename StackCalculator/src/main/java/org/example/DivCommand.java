@@ -15,6 +15,8 @@ public class DivCommand implements Command {
         double b = stack.pop();
 
         if (a == 0) {
+            stack.push(a);
+            stack.push(b);
             throw new CalculatorException("Division by zero");
         }
 

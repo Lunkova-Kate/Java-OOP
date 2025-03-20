@@ -24,7 +24,6 @@ public class CommandFactory {
             throw new RuntimeException("Failed to load commands.properties", e);
         }
 
-        // Проходим по всем записям в конфигурационном файле
         for (String commandName : properties.stringPropertyNames()) {
             String className = properties.getProperty(commandName);
 
