@@ -1,0 +1,4 @@
+PUSH 10
+push 20
+ADD
+print

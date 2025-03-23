@@ -5,15 +5,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Main {
-    public static void main(String[] args) throws CalculatorException {
-       List<String> commands = new ArrayList<>();
+    private static final Logger logger = LogManager.getLogger(Main.class);
 
-        // Режим файла
+    public static void main(String[] args) throws CalculatorException {
+        List<String> commands = new ArrayList<>();
+
         if (args.length > 0) {
             String filePath = args[0];
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -21,14 +22,13 @@ public class Main {
                 while ((line = reader.readLine()) != null) {
                     commands.add(line.trim());
                 }
+                logger.info("Loaded commands from file: {}", filePath);
             } catch (IOException e) {
-                System.err.println("Error reading file: " + e.getMessage());
+                logger.error("Error reading file: {}", filePath, e);
                 return;
             }
-        }
-
-        // Интерактивный режим
-        else {
+        } else {
+            logger.info("Entering interactive mode.");
             System.out.println("Entering interactive mode. Type 'EXIT' to quit.");
             Calculator calculator = new Calculator();
             try (BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in))) {
@@ -42,36 +42,24 @@ public class Main {
                     }
                     try {
                         calculator.executeCommands(List.of(line));
-                    }
-                    catch (Exception e) {
-                        System.err.println("Error: " + e.getMessage());
+                    } catch (Exception e) {
+                        logger.error("Error executing command: {}", line, e);
                     }
                 }
             } catch (IOException e) {
-                System.err.println("Error reading input: " + e.getMessage());
+                logger.error("Error reading input", e);
                 throw new RuntimeException(e);
-
             }
         }
 
-        // Запуск калькулятора (для режима файла)
         if (!commands.isEmpty()) {
             Calculator calculator = new Calculator();
             try {
                 calculator.executeCommands(commands);
             } catch (CalculatorException e) {
-                System.err.println("Error executing commands: " + e.getMessage());
-                throw new RuntimeException(e); // Оборачиваем в RuntimeException
+                logger.error("Error executing commands", e);
+                throw new RuntimeException(e);
             }
         }
-//        Map<String, Command> commands = new HashMap<>();
-//        CommandFactory factory = new CommandFactory();
-//        List<String> commands = List.of(
-//                "PUSH 10",
-//                "ADD" // Недостаточно элементов в стеке
-//        );
-//        Calculator cals = new Calculator();
-//        cals.executeCommands(commands);
-
     }
 }

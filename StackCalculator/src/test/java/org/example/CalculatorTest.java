@@ -26,7 +26,7 @@ class CalculatorTest {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "PUSH 10",
-                "ADD" 
+                "ADD" // Недостаточно элементов в стеке
         );
         assertThrows(CalculatorException.class, () -> calculator.executeCommands(commands));
     }

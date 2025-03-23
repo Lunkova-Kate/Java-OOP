@@ -14,9 +14,9 @@ public class ExecutionContext {
     public Stack<Double> getStack() {
         return stack;
     }
-    public void printStack() {
-        System.out.println("Stack: " + stack);
-    }
+//    public void printStack() {
+//        System.out.println("Stack: " + stack);
+//    }
 //    public double popStackWithCheck() throws CalculatorException {
 //        if (stack.isEmpty()) {
 //            throw new CalculatorException("Not enough elements in stack");

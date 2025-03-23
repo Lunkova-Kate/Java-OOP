@@ -13,7 +13,6 @@ public class CommandFactory {
     private Map<String, Command> commands = new HashMap<>();
 
     public CommandFactory() {
-        // Загружаем конфигурационный файл из ресурсов
         Properties properties = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("command.properties")) {
             if (input == null) {
@@ -28,12 +27,9 @@ public class CommandFactory {
             String className = properties.getProperty(commandName);
 
             try {
-                // Получаем класс команды по имени
                 Class<?> clazz = Class.forName(className);
-                // Создаем экземпляр команды
                 Constructor<?> constructor = clazz.getConstructor();
                 Command command = (Command) constructor.newInstance();
-                // Добавляем команду в фабрику
                 commands.put(commandName.toUpperCase(), command);
             } catch (Exception e) {
                 throw new RuntimeException("Failed to create command: " + commandName, e);

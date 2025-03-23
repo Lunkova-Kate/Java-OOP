@@ -34,7 +34,7 @@ class DefineCommandTest {
         ExecutionContext context = new ExecutionContext();
         PushCommand pushCommand = new PushCommand();
 
-        // пытаемся добавить нечисловое значение
+        // Попытка добавить нечисловое значение
         assertThrows(CalculatorException.class, () -> pushCommand.execute(context, new String[]{"abc"}));
     }
 
@@ -43,7 +43,7 @@ class DefineCommandTest {
         ExecutionContext context = new ExecutionContext();
         PushCommand pushCommand = new PushCommand();
 
-        // пытаемся выполнить команду без аргументов
+        // Попытка выполнить команду без аргументов
         assertThrows(CalculatorException.class, () -> pushCommand.execute(context, new String[]{}));
     }
 }
