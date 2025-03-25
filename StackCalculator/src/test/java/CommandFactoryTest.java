@@ -1,12 +1,15 @@
-package org.example;
-
+import org.example.calculatorCommand.*;
+import org.example.calculatorSettings.CalculatorException;
+import org.example.calculatorSettings.Command;
+import org.example.calculatorSettings.CommandFactory;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CommandFactoryTest {
 
     @Test
-    void testGetCommand() throws CalculatorException {
+    void testGetCommandTrue() throws CalculatorException {
         CommandFactory commandFactory = new CommandFactory();
 
         Command pushCommand = commandFactory.getCommand("PUSH");
@@ -41,7 +44,7 @@ class CommandFactoryTest {
     }
 
     @Test
-    void testGetInvalidCommand() {
+    void testGetInvalidCommandErrorThrows() {
         CommandFactory commandFactory = new CommandFactory();
 
         assertThrows(CalculatorException.class, () -> commandFactory.getCommand("INVALID"));

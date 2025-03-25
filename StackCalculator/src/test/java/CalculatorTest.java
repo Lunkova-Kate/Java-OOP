@@ -1,13 +1,15 @@
-package org.example;
-
+import org.example.calculatorSettings.Calculator;
+import org.example.calculatorSettings.CalculatorException;
+import org.example.calculatorSettings.ExecutionContext;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
 
     @Test
-    void testExecuteCommands() throws CalculatorException {
+    void testExecuteCommandsEqualsEquals() throws CalculatorException {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "DEFINE A 10",
@@ -22,7 +24,7 @@ class CalculatorTest {
     }
 
     @Test
-    void testExecuteCommandsWithError() {
+    void testExecuteCommandsWithErrorThrows() {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "PUSH 10",

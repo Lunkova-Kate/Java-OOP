@@ -1,13 +1,14 @@
-package org.example;
-
+import org.example.calculatorSettings.Calculator;
+import org.example.calculatorSettings.CalculatorException;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MulCommandTest {
 
     @Test
-    void testMulCommandSuccess() throws CalculatorException {
+    void testMulCommandSuccessEquals() throws CalculatorException {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "PUSH 10",
@@ -19,7 +20,7 @@ class MulCommandTest {
     }
 
     @Test
-    void testMulCommandNotEnoughElements() {
+    void testMulCommandNotEnoughElementsThrows() {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "PUSH 10",

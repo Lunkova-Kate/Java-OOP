@@ -1,13 +1,14 @@
-package org.example;
-
+import org.example.calculatorSettings.Calculator;
+import org.example.calculatorSettings.CalculatorException;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SqrtCommandTest {
 
     @Test
-    void testSqrtCommandSuccess() throws CalculatorException {
+    void testSqrtCommandSuccessEquals() throws CalculatorException {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "PUSH 16",
@@ -18,7 +19,7 @@ class SqrtCommandTest {
     }
 
     @Test
-    void testSqrtCommandNegativeNumber() {
+    void testSqrtCommandNegativeNumberThrows() {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "PUSH -10",
@@ -28,7 +29,7 @@ class SqrtCommandTest {
     }
 
     @Test
-    void testSqrtCommandEmptyStack() {
+    void testSqrtCommandEmptyStackThrows() {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "SQRT"

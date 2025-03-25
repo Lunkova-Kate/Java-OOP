@@ -1,12 +1,16 @@
-package org.example;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.example.calculatorCommand.AddCommand;
+import org.example.calculatorCommand.PushCommand;
+import org.example.calculatorSettings.CalculatorException;
+import org.example.calculatorSettings.ExecutionContext;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AddCommandTest {
 
     @Test
-    void testAdd() throws CalculatorException {
+    void testAddAssertEquals() throws CalculatorException {
         ExecutionContext context = new ExecutionContext();
         PushCommand pushCommand = new PushCommand();
         AddCommand addCommand = new AddCommand();
@@ -18,7 +22,7 @@ class AddCommandTest {
     }
 
     @Test
-    void test1AddNotEnoughElements() throws CalculatorException {
+    void testAddNotEnoughElementsThrows() throws CalculatorException {
         ExecutionContext context = new ExecutionContext();
         PushCommand pushCommand = new PushCommand();
         AddCommand addCommand = new AddCommand();

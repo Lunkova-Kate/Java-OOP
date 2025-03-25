@@ -1,13 +1,16 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+
+import org.example.calculatorSettings.Calculator;
+import org.example.calculatorSettings.CalculatorException;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
@@ -17,10 +20,9 @@ public class Main {
 
         if (args.length > 0) {
             String filePath = args[0];
-            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    commands.add(line.trim());
+            try (Scanner fileScanner = new Scanner(new File(filePath))) {
+                while (fileScanner.hasNextLine()) {
+                    commands.add(fileScanner.nextLine().trim());
                 }
                 logger.info("Loaded commands from file: {}", filePath);
             } catch (IOException e) {
@@ -51,8 +53,9 @@ public class Main {
                 throw new RuntimeException(e);
             }
         }
-
+//продолжение
         if (!commands.isEmpty()) {
+            logger.info("Entering file mode.");
             Calculator calculator = new Calculator();
             try {
                 calculator.executeCommands(commands);

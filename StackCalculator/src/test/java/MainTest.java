@@ -1,5 +1,5 @@
-package org.example;
-
+import org.example.Main;
+import org.example.calculatorSettings.CalculatorException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -18,7 +18,7 @@ class MainTest {
     Path tempDir; // Временная директория для тестовых файлов
 
     @Test
-    void testFileMode() throws IOException, CalculatorException {
+    void testFileModeTrue() throws IOException, CalculatorException {
         // Создаем временный файл с тестовыми командами
         File tempFile = tempDir.resolve("testCommands.txt").toFile();
         try (FileWriter writer = new FileWriter(tempFile)) {
@@ -46,7 +46,7 @@ class MainTest {
 
 
     @Test
-    void testFileModeWithInvalidCommands() throws IOException {
+    void testFileModeWithInvalidCommandsEquelsWithTrue() throws IOException {
         // Создаем временный файл с некорректными командами
         File tempFile = tempDir.resolve("invalidCommands.txt").toFile();
         try (FileWriter writer = new FileWriter(tempFile)) {
@@ -63,7 +63,7 @@ class MainTest {
     }
 
     @Test
-    void testInteractiveMode() throws CalculatorException {
+    void testInteractiveModeTrue() throws CalculatorException {
         // Подготавливаем входные данные, которые будут симулировать ввод пользователя
         String input = "PUSH 10\nPUSH 20\nADD\nPRINT\nEXIT\n";
         InputStream inputStream = new ByteArrayInputStream(input.getBytes());

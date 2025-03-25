@@ -1,12 +1,15 @@
-package org.example;
-
+import org.example.calculatorCommand.PrintCommand;
+import org.example.calculatorCommand.PushCommand;
+import org.example.calculatorSettings.CalculatorException;
+import org.example.calculatorSettings.ExecutionContext;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PrintCommandTest {
 
     @Test
-    void testPrint() throws CalculatorException {
+    void testPrintEquals() throws CalculatorException {
         ExecutionContext context = new ExecutionContext();
         PushCommand pushCommand = new PushCommand();
         PrintCommand printCommand = new PrintCommand();
@@ -17,7 +20,7 @@ class PrintCommandTest {
     }
 
     @Test
-    void testPrintEmptyStack() {
+    void testPrintEmptyStackThrows() {
         ExecutionContext context = new ExecutionContext();
         PrintCommand printCommand = new PrintCommand();
 

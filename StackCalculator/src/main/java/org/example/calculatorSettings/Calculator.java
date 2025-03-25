@@ -1,8 +1,9 @@
-package org.example;
+package org.example.calculatorSettings;
 
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 public class Calculator {
     private static final Logger logger = LogManager.getLogger(Calculator.class);
@@ -22,7 +23,7 @@ public class Calculator {
             try {
                 Command command = commandFactory.getCommand(commandName);
                 logger.info("Executing command: {}", commandLine);
-                command.execute(context, args);
+                command.execute(context, args); //вызвали уже нужного класса!
             } catch (CalculatorException e) {
                 logger.error("Error executing command: {}", commandLine, e);
                 throw e;

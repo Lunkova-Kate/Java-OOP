@@ -1,8 +1,12 @@
-package org.example;
+package org.example.calculatorCommand;
 
-import java.util.Stack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import org.example.calculatorSettings.Command;
+import org.example.calculatorSettings.ExecutionContext;
+import org.example.calculatorSettings.CalculatorException;
+import java.util.Stack;
 
 
 public class AddCommand implements Command {
@@ -16,7 +20,7 @@ public class AddCommand implements Command {
             logger.error("Not enough elements in stack for ADD command");
             throw new CalculatorException("Not enough elements in stack for ADD command");
         }
-
+//тут вопрос!!
         double a = stack.pop();
         double b = stack.pop();
         stack.push(a + b);

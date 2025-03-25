@@ -1,12 +1,12 @@
-package org.example;
-
+import org.example.calculatorSettings.CalculatorException;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorExceptionTest {
 
     @Test
-    void testConstructorWithMessage() {
+    void testConstructorWithMessageErrorEquals() {
         String errorMessage = "Test error message";
         CalculatorException exception = new CalculatorException(errorMessage);
 
@@ -16,7 +16,7 @@ class CalculatorExceptionTest {
     }
 
     @Test
-    void testConstructorWithMessageAndCause() {
+    void testConstructorWithMessageEquals() {
 
         String errorMessage = "Test error message";
         Throwable cause = new RuntimeException("Root cause");

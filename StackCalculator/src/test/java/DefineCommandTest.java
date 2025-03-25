@@ -1,39 +1,39 @@
-package org.example;
-
+import org.example.calculatorCommand.DefineCommand;
+import org.example.calculatorCommand.PushCommand;
+import org.example.calculatorSettings.CalculatorException;
+import org.example.calculatorSettings.ExecutionContext;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class PushCommandTest {
+class DefineCommandTest {
 
     @Test
-    void testPushNumber() throws CalculatorException {
-        ExecutionContext context = new ExecutionContext();
-        PushCommand pushCommand = new PushCommand();
-
-        pushCommand.execute(context, new String[]{"10"});
-        assertEquals(10.0, context.getStack().peek());
-    }
-
-    @Test
-    void testPushVariable() throws CalculatorException {
+    void testDefineVariableEquels() throws CalculatorException {
         ExecutionContext context = new ExecutionContext();
         DefineCommand defineCommand = new DefineCommand();
-        PushCommand pushCommand = new PushCommand();
 
         defineCommand.execute(context, new String[]{"A", "10"});
-        pushCommand.execute(context, new String[]{"A"});
-        assertEquals(10.0, context.getStack().peek());
+        assertEquals(10.0, context.getVariables().get("A"));
     }
 
     @Test
-    void testPushInvalidVariable() {
+    void testDefineInvalidNumberThrows() {
         ExecutionContext context = new ExecutionContext();
-        PushCommand pushCommand = new PushCommand();
+        DefineCommand defineCommand = new DefineCommand();
 
-        assertThrows(CalculatorException.class, () -> pushCommand.execute(context, new String[]{"B"}));
+        assertThrows(CalculatorException.class, () -> defineCommand.execute(context, new String[]{"A", "abc"}));
+    }
+
+    @Test
+    void testDefineMissingArgumentsThrows() {
+        ExecutionContext context = new ExecutionContext();
+        DefineCommand defineCommand = new DefineCommand();
+
+        assertThrows(CalculatorException.class, () -> defineCommand.execute(context, new String[]{"A"}));
     }
     @Test
-    void testPushInvalidNumber() {
+    void testPushInvalidNumberThrows() {
         ExecutionContext context = new ExecutionContext();
         PushCommand pushCommand = new PushCommand();
 
@@ -42,7 +42,7 @@ class PushCommandTest {
     }
 
     @Test
-    void testPushMissingArguments() {
+    void testPushMissingArgumentsThrows() {
         ExecutionContext context = new ExecutionContext();
         PushCommand pushCommand = new PushCommand();
 

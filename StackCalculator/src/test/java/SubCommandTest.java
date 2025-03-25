@@ -1,13 +1,14 @@
-package org.example;
-
+import org.example.calculatorSettings.Calculator;
+import org.example.calculatorSettings.CalculatorException;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubCommandTest {
 
     @Test
-    void testSubCommandSuccess() throws CalculatorException {
+    void testSubCommandSuccessEquals() throws CalculatorException {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "PUSH 20",
@@ -19,7 +20,7 @@ class SubCommandTest {
     }
 
     @Test
-    void testSubCommandNotEnoughElements() {
+    void testSubCommandNotEnoughElementsThrows() {
         Calculator calculator = new Calculator();
         List<String> commands = List.of(
                 "PUSH 10",

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.calculatorSettings;
 
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ public class CommandFactory {
     private Map<String, Command> commands = new HashMap<>();
 
     public CommandFactory() {
-        Properties properties = new Properties();
+        Properties properties = new Properties(); //!!
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("command.properties")) {
             if (input == null) {
                 throw new RuntimeException("Failed to load commands.properties: file not found");
@@ -23,10 +23,10 @@ public class CommandFactory {
             throw new RuntimeException("Failed to load commands.properties", e);
         }
 
-        for (String commandName : properties.stringPropertyNames()) {
-            String className = properties.getProperty(commandName);
+        for (String commandName : properties.stringPropertyNames()) {  //по названиям распарсенного фалика!
+            String className = properties.getProperty(commandName); //вернем значение через ключ, класс вернем
 
-            try {
+            try { //!!!
                 Class<?> clazz = Class.forName(className);
                 Constructor<?> constructor = clazz.getConstructor();
                 Command command = (Command) constructor.newInstance();

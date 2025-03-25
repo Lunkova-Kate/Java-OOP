@@ -1,7 +1,10 @@
-package org.example;
+package org.example.calculatorCommand;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.calculatorSettings.CalculatorException;
+import org.example.calculatorSettings.Command;
+import org.example.calculatorSettings.ExecutionContext;
 
 public class DefineCommand implements Command {
     private static final Logger logger = LogManager.getLogger(DefineCommand.class);
