@@ -53,7 +53,7 @@ public class Main {
                 throw new RuntimeException(e);
             }
         }
-//продолжение
+
         if (!commands.isEmpty()) {
             logger.info("Entering file mode.");
             Calculator calculator = new Calculator();

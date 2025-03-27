@@ -20,7 +20,7 @@ public class AddCommand implements Command {
             logger.error("Not enough elements in stack for ADD command");
             throw new CalculatorException("Not enough elements in stack for ADD command");
         }
-//тут вопрос!!
+
         double a = stack.pop();
         double b = stack.pop();
         stack.push(a + b);
