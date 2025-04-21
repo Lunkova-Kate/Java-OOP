@@ -6,53 +6,52 @@ import bombSquad.model.GameBoard;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.Random;
 
 public class GameFileLoader {
     public static GameBoard loadGameFromFile(String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String header = reader.readLine();
             if (header == null || !header.startsWith("#F")) {
-                throw new IllegalArgumentException("Неверный формат файла.");
+                throw new IllegalArgumentException("Неверный формат файла. Заголовок должен начинаться с '#F'.");
             }
             String[] dimensions = header.split(" ")[1].split("/");
             int width = Integer.parseInt(dimensions[0]);
             int height = Integer.parseInt(dimensions[1]);
-
-            GameBoard board = new GameBoard(width, height, 0);
-
-            Set<String> bombPositions = new HashSet<>();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (line.isEmpty()) continue;
-                String[] coords = line.split(" ");
-                if (coords.length != 2) {
-                    throw new IllegalArgumentException("Неверный формат координат бомбы: " + line);
-                }
-                int x = Integer.parseInt(coords[0]);
-                int y = Integer.parseInt(coords[1]);
-                if (!board.isValidPosition(x, y)) {
-                    throw new IllegalArgumentException("Координаты бомбы вне поля: " + line);
-                }
-                bombPositions.add(x + "," + y);
+            String bombLine = reader.readLine();
+            if (bombLine == null || !bombLine.matches("\\d+")) {
+                throw new IllegalArgumentException("Неверный формат количества бомб. Ожидалось целое число.");
             }
+            int totalBombs = Integer.parseInt(bombLine.trim());
 
-            int totalBombs = bombPositions.size();
-            board = new GameBoard(width, height, totalBombs);
-            for (String pos : bombPositions) {
-                String[] coords = pos.split(",");
-                int x = Integer.parseInt(coords[0]);
-                int y = Integer.parseInt(coords[1]);
-                board.getCells()[x][y].setBomb(true);
-            }
+            GameBoard board = new GameBoard(width, height, totalBombs);
 
-            board.calculateBombsAround();
+            placeBombsRandomly(board, totalBombs);
 
             return board;
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Ошибка при чтении числовых данных: " + e.getMessage());
         }
+    }
+
+
+    private static void placeBombsRandomly(GameBoard board, int totalBombs) {
+        Random random = new Random();
+        int width = board.getWidth();
+        int height = board.getHeight();
+        int bombsPlaced = 0;
+
+        while (bombsPlaced < totalBombs) {
+            int x = random.nextInt(width);
+            int y = random.nextInt(height);
+
+            if (!board.getCells()[x][y].isBomb()) {
+                board.getCells()[x][y].setBomb(true);
+                bombsPlaced++;
+            }
+        }
+
+        board.calculateBombsAround();
     }
 }

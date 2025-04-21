@@ -2,26 +2,11 @@ package bombSquad.model;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class GameSaveManager {
     public static final String SCORES_FILE = "scores.txt";
 
-    public void saveScore(Score score) {
-        try {
-            List<Score> scores = loadScores();
-            scores.add(score);
-            scores.sort(Comparator.comparingLong(Score::getTime));
-
-            if (scores.size() > 10) {
-                scores = scores.subList(0, 10);
-            }
-            writeScores(scores);
-        } catch (IOException e) {
-            System.err.println("Ошибка при сохранении результата: " + e.getMessage());
-        }
-    }
 
     public static void saveToFile(Score score, String filename) throws IOException {
         File file = new File(SCORES_FILE);
@@ -66,21 +51,6 @@ public class GameSaveManager {
         }
     }
 
-
-
-    private void writeScores(List<Score> scores) throws IOException {
-        File file = new File(SCORES_FILE);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (Score score : scores) {
-                writer.write(String.format("%s,%d,%d,%d,%d%n",
-                        score.getPlayerName(),
-                        score.getTime(),
-                        score.getWidth(),
-                        score.getHeight(),
-                        score.getBombs()));
-            }
-        }
-    }
 
 }
 /*GameSaveManager.java

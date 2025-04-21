@@ -97,7 +97,6 @@ public class TerminalView {
         System.out.println("\nCommands:");
         System.out.println("<x> <y> open/o - Open a cell");
         System.out.println("<x> <y> flag/f - Place a flag, second f place ?, third cells is close");
-        System.out.println("<x> <y> question/q - Place a question mark");
         System.out.println("retry - Restart the game");
         System.out.println("view result - Show high scores");
         System.out.println("exit - Quit the game");

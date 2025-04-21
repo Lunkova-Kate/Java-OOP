@@ -1,11 +1,11 @@
 package bombSquad.model;
 
 public class Score {
-    private String playerName;
-    private long time;
-    private  int width;
-    private  int height;
-    private int countBombs;
+    private final String playerName;
+    private final long time;
+    private final int width;
+    private final int height;
+    private final int countBombs;
 
     public Score(String playerName, long time, int width, int height, int bombs) {
         this.playerName = playerName;
@@ -16,16 +16,11 @@ public class Score {
     }
 
 
-    public int compareTo(Score other) {
-        return Long.compare(this.time, other.time);
-    }
 
     public String getPlayerName() {
         return playerName;
     }
-    public String setPlayerName(String newPlayerName) {
-       return this.playerName = newPlayerName;
-    }
+
 
     public long getTime() {
         return time;

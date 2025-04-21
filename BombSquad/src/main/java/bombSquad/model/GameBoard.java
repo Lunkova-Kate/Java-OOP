@@ -4,20 +4,30 @@ import java.util.Random;
 
 public class GameBoard {
 
-    private  Cell[][] cells;
-    private  int width;
-    private  int height;
-    private  int totalBombs;
+    private final  Cell[][] cells;
+    private final int width;
+    private final int height;
+    private final int totalBombs;
     private int flagsPlaced;
     private boolean firstClick = true;
 
     public GameBoard(int width, int height, int totalBombs) {
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Ширина и высота поля должны быть положительными числами.");
+        }
+        if (totalBombs <= 0) {
+            throw new IllegalArgumentException("Количество бомб должно быть больше 0.");
+        }
+        int totalCells = width * height;
+        if (totalBombs >= totalCells) {
+            throw new IllegalArgumentException("Количество бомб не может быть больше или равно общему количеству клеток (" + totalCells + ").");
+        }
+
         this.width = width;
         this.height = height;
         this.totalBombs = totalBombs;
         this.flagsPlaced = 0;
         this.cells = new Cell[width][height];
-
         initializeBoard();
     }
 

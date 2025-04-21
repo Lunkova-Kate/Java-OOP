@@ -8,8 +8,8 @@ public class Cell {
     private CellState state;
     private boolean isBomb;
     private int bombsAround;
-    private  int x;
-    private  int y;
+    private final int x;
+    private final int y;
 
     public Cell(int x, int y) {
         this.x = x;
@@ -71,13 +71,6 @@ public class Cell {
         this.bombsAround = bombsAround;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
 
 }
 

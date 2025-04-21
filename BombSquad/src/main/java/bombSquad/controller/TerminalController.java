@@ -15,8 +15,8 @@ import java.util.Scanner;
 
 public class TerminalController {
     private GameLogicController logicController;
-    private TerminalView terminalView;
-    private Scanner scanner;
+    private final TerminalView terminalView;
+    private final Scanner scanner;
 
     public TerminalController() {
         this.scanner = new Scanner(System.in);
@@ -92,7 +92,6 @@ public class TerminalController {
         switch (action) {
             case "open", "o" -> handleOpenCommand(x, y);
             case "flag", "f" -> handleFlagCommand(x, y);
-            case "question", "q" -> handleQuestionCommand(x, y);
             default -> terminalView.displayFileError("Неизвестная команда.");
         }
     }
@@ -112,10 +111,6 @@ public class TerminalController {
     }
 
     private void handleFlagCommand(int x, int y) {
-        logicController.toggleFlag(x, y);
-    }
-
-    private void handleQuestionCommand(int x, int y) {
         logicController.toggleFlag(x, y);
     }
 

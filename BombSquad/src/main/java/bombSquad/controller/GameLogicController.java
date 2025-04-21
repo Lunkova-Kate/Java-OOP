@@ -27,7 +27,7 @@ public class GameLogicController {
         if (firstClick) {
             board.placeBombs(x, y);
             timer.start();
-            firstClick = false;    // Первый клик выполнен
+            firstClick = false; // Первый клик выполнен
         }
     }
 
@@ -81,12 +81,10 @@ public class GameLogicController {
         }
     }
 
-
     public void toggleFlag(int x, int y) {
         if (!board.isValidPosition(x, y) || gameOver || gameWon) return;
         board.toggleFlag(x, y);
     }
-
 
     public void resetGame() {
         board.reset();

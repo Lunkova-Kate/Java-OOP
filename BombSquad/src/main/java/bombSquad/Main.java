@@ -1,14 +1,18 @@
 package bombSquad;
 
-
 import bombSquad.controller.TerminalController;
+import javafx.application.Application;
 
 public class Main {
-    /**
-     * Запускает игру в терминальном режиме.
-     */
+
     public static void main(String[] args) {
-        TerminalController terminalController = new TerminalController();
-        terminalController.startGame();
+        if (args.length > 0 && args[0].equalsIgnoreCase("--terminal")) {
+            // терминальный режим
+            TerminalController terminalController = new TerminalController();
+            terminalController.startGame();
+        } else {
+            //графическй режим
+            Application.launch(MainApp.class, args);
+        }
     }
 }
