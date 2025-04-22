@@ -13,7 +13,7 @@ import bombSquad.model.GameBoard;
 public class GameView extends GridPane {
     public static final int CELL_SIZE = 32; //  клеткa в пикселях
 
-    private final GameBoard board; // cсылка на игровое поле (модель)
+    private final GameBoard board;
     private final ImageView[][] cellViews;
 
 
@@ -41,6 +41,8 @@ public class GameView extends GridPane {
         for (int x = 0; x < board.getWidth(); x++) {
             for (int y = 0; y < board.getHeight(); y++) {
                 ImageView cellView = new ImageView(closedCell);
+                this.setStyle("-fx-background-color: white");
+                this.setGridLinesVisible(true);
                 cellView.setFitWidth(CELL_SIZE);
                 cellView.setFitHeight(CELL_SIZE);
 
@@ -71,6 +73,10 @@ public class GameView extends GridPane {
     public void updateAllCells() {
         for (int x = 0; x < board.getWidth(); x++) {
             for (int y = 0; y < board.getHeight(); y++) {
+                Cell cell = board.getCells()[x][y];
+                if (cell.isBomb()) {
+                    cell.setState(Cell.CellState.OPENED); // Открываем клетки с бомбами
+                }
                 updateCell(x, y);
             }
         }

@@ -7,19 +7,52 @@ import java.util.List;
 public class GameSaveManager {
     public static final String SCORES_FILE = "scores.txt";
 
+    private static final int MAX_SCORES = 10;
 
-    public static void saveToFile(Score score, String filename) throws IOException {
-        File file = new File(SCORES_FILE);
-        System.out.println("Saving to: " + file.getAbsolutePath());
-        File parent = file.getParentFile();
-        if (parent != null && !parent.exists()) {
-            parent.mkdirs();
+    public void saveScore(Score newScore) throws IOException {
+        List<Score> scores = loadScores();
+
+        boolean shouldAdd = false;
+        if (scores.size() < MAX_SCORES) {
+            shouldAdd = true;
+        } else {
+            // сравниваем с  результатом (худшим)
+            Score lastScore = scores.get(scores.size() - 1);
+            if (compareScores(newScore, lastScore) < 0) {
+                shouldAdd = true;
+            }
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-            writer.write(String.format("%s,%d,%d,%d,%d%n",
-                    score.getPlayerName(), score.getTime(), score.getWidth(), score.getHeight(), score.getBombs()));
-            writer.flush(); //без заполнения полностью буфера
+        if (shouldAdd) {
+            scores.add(newScore);
+        }
+
+        scores.sort(this::compareScores);
+
+        //  только топ-10
+        if (scores.size() > MAX_SCORES) {
+            scores = scores.subList(0, MAX_SCORES);
+        }
+        writeScores(scores);
+    }
+
+    private int compareScores(Score s1, Score s2) {
+        // сначала по количеству бомб
+        if (s1.getBombs() != s2.getBombs()) {
+            return Integer.compare(s2.getBombs(), s1.getBombs());
+        }
+        // при равном количестве бомб сравниваем по времени
+        return Long.compare(s1.getTime(), s2.getTime());
+    }
+
+    private void writeScores(List<Score> scores) throws IOException {
+        File file = new File(SCORES_FILE);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Score score : scores) {
+                writer.write(String.format("%s,%d,%d,%d,%d%n",
+                        score.getPlayerName(), score.getTime(),
+                        score.getWidth(), score.getHeight(), score.getBombs()));
+            }
         }
     }
 
@@ -47,9 +80,14 @@ public class GameSaveManager {
                     }
                 }
             }
+            // сразу сортируем при загрузке
+            scores.sort(this::compareScores);
             return scores;
         }
     }
+
+
+
 
 
 }

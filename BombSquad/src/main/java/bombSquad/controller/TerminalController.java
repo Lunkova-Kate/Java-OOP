@@ -134,7 +134,6 @@ public class TerminalController {
         System.out.println("Поздравляем! Вы победили!");
         System.out.print("Введите ваше имя для таблицы рекордов: ");
         String playerName = scanner.nextLine().trim();
-
         if (playerName.isEmpty()) {
             playerName = "Anonymous";
         }
@@ -144,7 +143,8 @@ public class TerminalController {
         Score score = new Score(playerName, timeInSeconds, board.getWidth(), board.getHeight(), board.getTotalBombs());
 
         try {
-            GameSaveManager.saveToFile(score, GameSaveManager.SCORES_FILE);
+            GameSaveManager gameSaveManager = new GameSaveManager();
+            gameSaveManager.saveScore(score);
             System.out.println("Результат успешно сохранен!");
         } catch (IOException e) {
             System.err.println("Ошибка при сохранении результата: " + e.getMessage());

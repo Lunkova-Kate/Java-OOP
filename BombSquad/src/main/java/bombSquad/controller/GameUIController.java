@@ -6,6 +6,7 @@ import bombSquad.model.*;
 import bombSquad.view.*;
 import javafx.animation.AnimationTimer;
 
+import javafx.animation.PauseTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,6 +16,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -67,7 +70,7 @@ public class GameUIController {
                 int x = GridPane.getColumnIndex(clickedCell);
                 int y = GridPane.getRowIndex(clickedCell);
 
-                logicController.toggleFlag(x, y); // Переключение флага
+                logicController.toggleFlag(x, y);
                 gameView.updateCell(x, y);
                 updateUI();
             } catch (Exception e) {
@@ -122,9 +125,13 @@ public class GameUIController {
 
     private void handleGameOver() {
         logicController.getTimer().pause();
-        gameView.updateAllCells(); // Показываем все бомбы
-        //чем-то надо стопнуть
-        showWinLoseScreen(false);
+        gameView.updateAllCells();
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> showWinLoseScreen(false));
+        pause.play();
+
+     //   showWinLoseScreen(false);
     }
 
 
@@ -138,13 +145,11 @@ public class GameUIController {
         try {
             GameBoard board = logicController.getBoard();
             int timeInSeconds = (int) (logicController.getTimer().getElapsedTime() / 1000);
-
             TextInputDialog dialog = new TextInputDialog("Player");
             dialog.setTitle("Поздравляем!");
             dialog.setHeaderText(String.format("Вы победили за %d секунд на поле %dx%d с %d бомбами!",
                     timeInSeconds, board.getWidth(), board.getHeight(), board.getTotalBombs()));
             dialog.setContentText("Введите ваше имя:");
-
             dialog.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
                 Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
                 okButton.setDisable(newVal.trim().isEmpty());
@@ -155,8 +160,8 @@ public class GameUIController {
                 try {
                     Score score = new Score(playerName, timeInSeconds, board.getWidth(), board.getHeight(), board.getTotalBombs());
 
-                    GameSaveManager.saveToFile(score, GameSaveManager.SCORES_FILE);
-                    System.out.println("Результат успешно сохранен!");
+                    GameSaveManager gameSaveManager = new GameSaveManager();
+                    gameSaveManager.saveScore(score);
 
                 } catch (IOException e) {
                     System.err.println("Ошибка при сохранении результата: " + e.getMessage());

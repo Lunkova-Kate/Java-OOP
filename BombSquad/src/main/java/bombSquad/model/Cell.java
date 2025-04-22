@@ -1,6 +1,10 @@
 package bombSquad.model;
 
 public class Cell {
+    public void setState(CellState cellState) {
+        this.state = cellState;
+    }
+
     public enum CellState {
         CLOSED, OPENED, FLAGGED, QUESTIONED
     }

@@ -19,8 +19,8 @@ public class UIElements extends HBox {
     private final Image smileyWin = new Image(getClass().getResourceAsStream("/images/smiley_happy.png"));
     private final Image smileyLose = new Image(getClass().getResourceAsStream("/images/smiley_sad.png"));
 
-    private GameBoard gameBoard; // Ссылка на игровое поле
-    private GameTimer gameTimer; // Ссылка на таймер
+    private GameBoard gameBoard;
+    private GameTimer gameTimer;
 
 
     public UIElements(GameBoard gameBoard, GameTimer gameTimer) {

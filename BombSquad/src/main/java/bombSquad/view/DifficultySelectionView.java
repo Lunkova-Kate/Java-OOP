@@ -59,13 +59,11 @@ public class DifficultySelectionView {
 
         Scene scene = new Scene(stackPane, 500, 500);
         stage.setScene(scene);
-        stage.setTitle("Выбор сложности");
     }
 
     private Button createStyledButton(String title, String subtitle, String tooltipText) {
         Button button = new Button();
 
-        // Текст кнопки
         VBox textContainer = new VBox(5);
         Label titleLabel = new Label(title);
         titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: white;");
@@ -78,7 +76,7 @@ public class DifficultySelectionView {
 
         button.setGraphic(textContainer);
 
-        // Стиль кнопки
+
         button.setStyle("""
             -fx-background-color: rgba(0,0,0,0.3);
             -fx-background-radius: 10;

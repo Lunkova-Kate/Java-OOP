@@ -61,9 +61,6 @@ public class GameLogicController {
         return false;
     }
 
-    /**
-     * Рекурсивно открывает соседние клетки.
-     */
     private void openAdjacentCells(int x, int y) {
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = -1; dy <= 1; dy++) {
