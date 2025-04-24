@@ -145,7 +145,6 @@ public class TerminalController {
         try {
             GameSaveManager gameSaveManager = new GameSaveManager();
             gameSaveManager.saveScore(score);
-            System.out.println("Результат успешно сохранен!");
         } catch (IOException e) {
             System.err.println("Ошибка при сохранении результата: " + e.getMessage());
         }

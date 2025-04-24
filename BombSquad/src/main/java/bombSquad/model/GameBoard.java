@@ -9,7 +9,7 @@ public class GameBoard {
     private final int height;
     private final int totalBombs;
     private int flagsPlaced;
-    private boolean firstClick = true;
+    boolean firstClick = true;
 
     public GameBoard(int width, int height, int totalBombs) {
         if (width <= 0 || height <= 0) {
@@ -38,9 +38,7 @@ public class GameBoard {
             }
         }
     }
-    /* выбираем рандомные x y и,
-   цикле расставлять бомбы пока они есть
-   если в этой клеточке нет бомбы, то поставим!   */
+
     public void placeBombs(int kx, int ky){
         Random random = new Random();
         int countBombsPlaced = 0;
@@ -61,10 +59,7 @@ public class GameBoard {
         calculateBombsAround();
         firstClick = false;
     }
- /*считаем бомбы вокруг КАЖДОЙ клетки
- два цикла по x y
- если в этой клетке нет бомбы, то мы считаем вокруг(вызываем метод) и
- устанавливаем в этой клеточке количество бомб*/
+
  public void calculateBombsAround() {
      for (int x = 0; x < width; x++) {
          for (int y = 0; y < height; y++) {
@@ -80,11 +75,6 @@ public class GameBoard {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
- /*считаем соседей именно в этой клетке!
- заводим счетчик
- нужно перебрать все 8 клеток, нашу клетку пропускаем
- если есть бомба, то счетчик ++
- */
     private int countAdjacentBombs(int x, int y) {
         int count = 0;
 
@@ -104,14 +94,7 @@ public class GameBoard {
         return count;
     }
 
-    /*управляем флагами
-    проверяем, находятся ли координаты в пределах игрового поля. Если нет - выходит из метода.
-    если клетка открыта, то ничего не делаем
-    нам нужно:
-    CLOSED → FLAGGED
-    FLAGGED → QUESTIONED
-    QUESTIONED → CLOSED
-    * Уменьшает счётчик флагов. -  если флаг поставлен, с проверками*/
+
     public void toggleFlag(int x, int y) {
         if (!isValidPosition(x, y)) return;
 
@@ -177,21 +160,3 @@ public class GameBoard {
     }
 
 }
-
-
-/*GameBoard.java
-Поля :
-cells[][]: Массив клеток.
-width, height: Размеры поля.
-totalBombs: Общее количество бомб.
-flagsPlaced: Количество установленных флагов.
-firstClick: Флаг первого клика.
-Методы :
-initializeBoard(): Инициализирует поле.
-placeBombs(safeX, safeY): Расставляет бомбы, исключая безопасную область.
-calculateBombsAround(): Вычисляет количество бомб вокруг каждой клетки.
-countAdjacentBombs(x, y): Считает бомбы вокруг конкретной клетки.
-toggleFlag(x, y): Управляет флагами.
-isGameWon(): Проверяет, выиграна ли игра.
-reset(): Сбрасывает игровое поле.
-Геттеры для всех полей.*/

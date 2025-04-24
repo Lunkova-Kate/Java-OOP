@@ -50,14 +50,3 @@ public class Score {
 
 
 }
-/*Score.java
-Поля :
-playerName: Имя игрока.
-time: Время игры.
-width, height: Размеры поля.
-bombs: Количество бомб.
-Методы :
-compareTo(other): Сравнение результатов.
-Геттеры для всех полей.
-getFormattedTime(): Возвращает форматированное время.
-getDifficulty(): Определяет сложность.*/

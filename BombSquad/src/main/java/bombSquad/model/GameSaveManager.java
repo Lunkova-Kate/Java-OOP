@@ -3,6 +3,7 @@ package bombSquad.model;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameSaveManager {
     public static final String SCORES_FILE = "scores.txt";
@@ -11,25 +12,19 @@ public class GameSaveManager {
 
     public void saveScore(Score newScore) throws IOException {
         List<Score> scores = loadScores();
-
-        boolean shouldAdd = false;
-        if (scores.size() < MAX_SCORES) {
-            shouldAdd = true;
-        } else {
-            // сравниваем с  результатом (худшим)
-            Score lastScore = scores.get(scores.size() - 1);
-            if (compareScores(newScore, lastScore) < 0) {
-                shouldAdd = true;
-            }
-        }
-
-        if (shouldAdd) {
-            scores.add(newScore);
-        }
-
+        scores.add(newScore);
         scores.sort(this::compareScores);
+        scores = scores.stream()
+                .collect(Collectors.toMap(
+                        s -> s.getPlayerName(), // Ключ - имя игрока
+                        s -> s,                // Значение - результат
+                        (existing, replacement) -> existing // Если дубликат, сохраняем существующий
+                ))
+                .values()
+                .stream()
+                .sorted(this::compareScores) // Снова сортируем после удаления дубликатов
+                .collect(Collectors.toList());
 
-        //  только топ-10
         if (scores.size() > MAX_SCORES) {
             scores = scores.subList(0, MAX_SCORES);
         }
@@ -37,12 +32,13 @@ public class GameSaveManager {
     }
 
     private int compareScores(Score s1, Score s2) {
-        // сначала по количеству бомб
         if (s1.getBombs() != s2.getBombs()) {
             return Integer.compare(s2.getBombs(), s1.getBombs());
         }
-        // при равном количестве бомб сравниваем по времени
-        return Long.compare(s1.getTime(), s2.getTime());
+        if (s1.getTime() != s2.getTime()) {
+            return Long.compare(s1.getTime(), s2.getTime());
+        }
+        return s1.getPlayerName().compareTo(s2.getPlayerName());
     }
 
     private void writeScores(List<Score> scores) throws IOException {
@@ -87,15 +83,4 @@ public class GameSaveManager {
     }
 
 
-
-
-
 }
-/*GameSaveManager.java
-Методы :
-saveScore -  сохраняет для таблички
-saveToFile. - для файлика
-loadScores -  загрузка из файлика
-writeScores - вспомогательный метод
-
-*/

@@ -17,7 +17,6 @@ public class DifficultySelectionView {
     private Button easyButton;
     private Button mediumButton;
     private Button hardButton;
-    private Button customButton;
     private Button backButton;
 
     public DifficultySelectionView(Stage stage) {
@@ -133,9 +132,6 @@ public class DifficultySelectionView {
         return hardButton;
     }
 
-    public Button getCustomButton() {
-        return customButton;
-    }
 
     public Button getBackButton() {
         return backButton;

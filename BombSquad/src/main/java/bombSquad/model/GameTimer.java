@@ -59,15 +59,3 @@ public class GameTimer {
     }
 
 }
-/*GameTimer.java
-Поля :
-startTime, pauseTime, totalPausedTime: Временные метки.
-isRunning, isPaused: Состояние таймера.
-Методы :
-start(): Запускает таймер.
-pause(): Приостанавливает таймер.
-resume(): Возобновляет таймер.
-reset(): Сбрасывает таймер.
-getElapsedTime(): Возвращает прошедшее время.
-getFormattedTime(): Возвращает форматированное время.
-Геттеры для состояний.*/
