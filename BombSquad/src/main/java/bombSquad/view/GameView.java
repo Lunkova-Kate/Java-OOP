@@ -110,12 +110,3 @@ public class GameView extends GridPane {
         return x >= 0 && x < board.getWidth() && y >= 0 && y < board.getHeight();
     }
 }
-
-/*GameView.java (GUI)
-Отвечает за графическое представление игрового поля.
-
-Методы:
-public void initializeBoard() — инициализирует игровое поле.
-public void updateCell(int x, int y) — обновляет отображение одной клетки.
-public void updateAllCells() — обновляет отображение всего поля.
-public void setCellClickHandler(EventHandler<MouseEvent> handler) — устанавливает обработчик кликов.*/
