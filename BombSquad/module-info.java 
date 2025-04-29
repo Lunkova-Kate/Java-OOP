@@ -1,0 +1,7 @@
+module org.bombSquad {
+    requires javafx.controls;
+    requires javafx.fxml;
+
+    opens bombSquad to javafx.fxml;
+    exports bombSquad;
+}

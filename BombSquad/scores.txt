@@ -1,0 +1,10 @@
+Player2,50,5,5,5
+Player14,86,5,5,5
+Player13,87,5,5,5
+Player12,88,5,5,5
+Player11,89,5,5,5
+Player10,90,5,5,5
+Player9,91,5,5,5
+Player8,92,5,5,5
+Player7,93,5,5,5
+Player6,94,5,5,5
