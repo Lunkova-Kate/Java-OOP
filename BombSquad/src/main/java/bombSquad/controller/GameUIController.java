@@ -269,10 +269,3 @@ public class GameUIController {
         alert.showAndWait();
     }
 }
-/* GameUIController
-Описание : Управляет взаимодействием пользователя с графическим интерфейсом.
-
-Методы :
-
-setupEventHandlers(): Настраивает обработчики событий.
-updateUI(): Обновляет интерфейс.*/
