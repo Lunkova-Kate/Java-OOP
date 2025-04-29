@@ -111,11 +111,3 @@ public class TerminalView {
         System.out.println("\nYou won! Enter your name for the high score table:");
     }
 }
-/*TerminalView.java
-Методы :
-displayBoard(board, showBombs): Отображает игровое поле в терминале.
-displayGameOver(won, timer): Показывает сообщение о конце игры.
-displayHelp(): Показывает справку.
-displayScores(scores): Отображает таблицу рекордов.
-Другие методы для вывода информации в терминал.
-*/
