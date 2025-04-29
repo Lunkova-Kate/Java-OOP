@@ -117,15 +117,3 @@ public class MainMenuView {
         return exitButton;
     }
 }
-/*Описание : Отображает главное меню игры.
-
-Поля :
-
-Button newGameButton, loadGameButton, exitButton.
-Методы :
-
-initializeUI(): Создает UI элементы главного меню.
-Геттеры :
-
-getNewGameButton(), getLoadGameButton(), getExitButton().
-.*/
