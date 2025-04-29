@@ -16,13 +16,13 @@ public class GameSaveManager {
         scores.sort(this::compareScores);
         scores = scores.stream()
                 .collect(Collectors.toMap(
-                        s -> s.getPlayerName(), // Ключ - имя игрока
-                        s -> s,                // Значение - результат
-                        (existing, replacement) -> existing // Если дубликат, сохраняем существующий
+                        s -> s.getPlayerName(),
+                        s -> s,               
+                        (existing, replacement) -> existing 
                 ))
                 .values()
                 .stream()
-                .sorted(this::compareScores) // Снова сортируем после удаления дубликатов
+                .sorted(this::compareScores) 
                 .collect(Collectors.toList());
 
         if (scores.size() > MAX_SCORES) {
@@ -76,7 +76,6 @@ public class GameSaveManager {
                     }
                 }
             }
-            // сразу сортируем при загрузке
             scores.sort(this::compareScores);
             return scores;
         }
