@@ -99,13 +99,3 @@ public class WinLoseScreenView {
         return stage.getScene();
     }
 }
-/* WinLoseScreenView
-Описание : Отображает экран победы или поражения.
-
-Поля :
-
-Label resultLabel, timeLabel, bombsLabel.
-Button backButton, statsButton, exitButton.
-Методы :
-
-initializeUI(boolean isWin, int time, int bombsFound, int totalBombs): Создает UI элементы экрана результата.*/
