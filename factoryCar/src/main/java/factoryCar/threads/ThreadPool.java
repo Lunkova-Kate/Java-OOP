@@ -7,7 +7,6 @@ public class ThreadPool {
     private final BlockingQueue<Runnable> taskQueue;
     private final Thread[] workerThreads;
     private volatile boolean isRunning = true;
-    private int nextWorkerId = 1;
 
     public ThreadPool(int poolSize) {
         this.taskQueue = new LinkedBlockingQueue<>();
@@ -19,9 +18,7 @@ public class ThreadPool {
         }
     }
 
-    public synchronized int getNextWorkerId() {
-        return nextWorkerId++;
-    }
+
 
     public void addTask(Runnable task) {
         if (isRunning) {
@@ -34,10 +31,6 @@ public class ThreadPool {
         for (Thread workerThread : workerThreads) {
             workerThread.interrupt();
         }
-    }
-
-    public int getQueueSize() {
-        return taskQueue.size();
     }
 
     private class WorkerThread extends Thread {

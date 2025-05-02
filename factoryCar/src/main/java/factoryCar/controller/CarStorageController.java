@@ -13,7 +13,7 @@ public class CarStorageController {
     private final BodyStorage bodyStorage;
     private final EngineStorage engineStorage;
     private final AccessoryStorage accessoryStorage;
-    private final double refillThreshold; // 0.8 = 80%
+    private final double refillThreshold;
 
     public CarStorageController(CarStorage carStorage, ThreadPool workerPool,
                                 BodyStorage bodyStorage, EngineStorage engineStorage,
@@ -25,7 +25,6 @@ public class CarStorageController {
         this.accessoryStorage = accessoryStorage;
         this.refillThreshold = refillThreshold;
 
-        // Начинаем мониторинг
         startMonitoring();
     }
 

@@ -21,7 +21,7 @@ public class FactoryController {
     private final Config config;
 
 
-    public FactoryController(Config config) throws IOException {
+    public FactoryController(Config config){
         this.config = config;
         this.bodyStorage = new BodyStorage(config.getBodyStorageSize());
         this.engineStorage = new EngineStorage(config.getEngineStorageSize());
@@ -43,7 +43,6 @@ public class FactoryController {
     }
 
     public void stop() {
-        // Остановка всех компонентов
         suppliers.forEach(Supplier::stopThread);
         dealers.forEach(Dealer::stopThread);
         if (workerPool != null) {
@@ -85,7 +84,7 @@ public class FactoryController {
                 bodyStorage,
                 engineStorage,
                 accessoryStorage,
-                0.6
+                0.8
         );
 
     }
@@ -94,7 +93,7 @@ public class FactoryController {
         for (int i = 0; i < config.getDealers(); i++) {
             Dealer dealer = new Dealer(
                     carStorage,
-                    config.getDealerMinDelay(), // Используем правильную задержку
+                    config.getDealerMinDelay(),
                     config.isLogSale()
             );
             dealers.add(dealer);

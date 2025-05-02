@@ -18,7 +18,7 @@ public class Main extends Application {
             FactoryController factoryController = new FactoryController(config);
 
             // 3. Создаем и показываем GUI
-            FactoryView factoryView = new FactoryView(factoryController, config);
+            FactoryView factoryView = new FactoryView(factoryController, config, primaryStage);
             factoryView.show();
 
         } catch (Exception e) {

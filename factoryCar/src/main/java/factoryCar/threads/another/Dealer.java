@@ -10,7 +10,6 @@ public class Dealer extends StoppableThread {
     private final CarStorage carStorage;
     private volatile int delay;
     private final Logger logger;
-    private int soldCount = 0;
     private static int nextId = 1;
 
     public Dealer(CarStorage carStorage, int delay, boolean logSale) {
@@ -27,7 +26,7 @@ public class Dealer extends StoppableThread {
                 Thread.sleep(delay);
 
                 Car car = carStorage.take();  // Блокируется, если машин нет
-                soldCount++;
+
                 logger.logSale(getId(), car);
             }
         } catch (InterruptedException e) {
@@ -38,12 +37,9 @@ public class Dealer extends StoppableThread {
     }
 
     public void setDelay(int delay) {
-        this.delay = delay;  // Изменение скорости работы
+        this.delay = delay;
     }
 
-    public int getSoldCount() {
-        return soldCount;  // Для статистики
-    }
 
     public long getId() {
         return id;

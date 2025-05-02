@@ -56,7 +56,6 @@ public class Config {
         return value != null ? Boolean.parseBoolean(value) : defaultValue;
     }
 
-    // Getters for all properties
     public int getBodyStorageSize() { return bodyStorageSize; }
     public int getEngineStorageSize() { return engineStorageSize; }
     public int getAccessoryStorageSize() { return accessoryStorageSize; }
